@@ -6,6 +6,7 @@ import {
     Button,
     Image,
     Badge,
+    useToast,
   } from "@chakra-ui/react";
   import { Link } from "react-router-dom";
   import { useWeb3React } from "@web3-react/core";
@@ -13,9 +14,11 @@ import {
   import { useCallback, useEffect, useState } from "react";
   
   const Home = () => {
+    const [isMinting, setIsMinting] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
     const { active, account } = useWeb3React();
     const jesusPunks = useJesusPunks();
+    const toast = useToast();
   
     const getJesusPunksData = useCallback(async () => {
       if (jesusPunks) {
@@ -31,6 +34,37 @@ import {
     useEffect(() => {
       getJesusPunksData();
     }, [getJesusPunksData]);
+
+    const mint = () => {
+        setIsMinting(true);
+
+        jesusPunks.methods.mint().send({
+            from: account,
+        })
+        .on("transactionHash", (txHash) =>{
+            toast({
+                tite: 'Transacción enviada',
+                description: txHash,
+                status: 'info',
+            });
+        })
+        .on("recipient", () =>{
+            setIsMinting(false);
+            toast({
+                title: 'Transacción confirmada',
+                description: 'Aprendiendo',
+                status: 'success',
+            });
+        })
+        .on("error", (error) => {
+            setIsMinting(false);
+            toast({
+                title: 'Transacción Fallida',
+                description: error.message,
+                status: 'error'
+            });
+        });
+    };
   
     return (
       <Stack
@@ -89,6 +123,8 @@ import {
               bg={"green.400"}
               _hover={{ bg: "green.500" }}
               disabled={!jesusPunks}
+              onClick={mint}
+              isLoading={isMinting}
             >
               Obtén tu punk
             </Button>
