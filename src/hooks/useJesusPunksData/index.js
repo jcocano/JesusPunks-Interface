@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import useJesusPunks from "../useJesusPunks";
 
-//Plural Sintaxis
+//Plural Data
 const getPunkData = async ({jesusPunks, tokenId}) => {
     const [
         tokenURI,
@@ -103,4 +103,32 @@ const useJesusPunksData = () => {
     }
 };
 
-export { useJesusPunksData };
+// Singular Data
+const useJesusPunkData = (tokenId = null) => {
+    const [punk, setPunk] = useState({});
+    const [loading, setLoading] = useState(true);
+    const jesusPunks = useJesusPunks();
+  
+    const update = useCallback(async () => {
+      if (jesusPunks && tokenId != null) {
+        setLoading(true);
+  
+        const toSet = await getPunkData({ tokenId, jesusPunks });
+        setPunk(toSet);
+  
+        setLoading(false);
+      }
+    }, [jesusPunks, tokenId]);
+  
+    useEffect(() => {
+      update();
+    }, [update]);
+  
+    return {
+      loading,
+      punk,
+      update,
+    };
+  };
+  
+export { useJesusPunksData, useJesusPunkData };
