@@ -104,31 +104,31 @@ const useJesusPunksData = () => {
 };
 
 // Singular Data
-const useJesusPunkData = (tokenId = null) => {
+const useJesusPunkData = (tokenId = null) =>{
     const [punk, setPunk] = useState({});
     const [loading, setLoading] = useState(true);
     const jesusPunks = useJesusPunks();
-  
-    const update = useCallback(async () => {
-      if (jesusPunks && tokenId != null) {
-        setLoading(true);
-  
-        const toSet = await getPunkData({ tokenId, jesusPunks });
-        setPunk(toSet);
-  
-        setLoading(false);
-      }
+
+    const update = useCallback(async() =>{
+        if (jesusPunks && tokenId !=null){
+            setLoading(true);
+
+            const toSet = await getPunkData({ tokenId, jesusPunks });
+            setPunk(toSet);
+
+            setLoading(false);
+        };
     }, [jesusPunks, tokenId]);
-  
+
     useEffect(() => {
-      update();
+        update();
     }, [update]);
-  
-    return {
-      loading,
-      punk,
-      update,
+
+    return{
+        loading,
+        punk,
+        update,
     };
-  };
-  
-export { useJesusPunksData, useJesusPunkData };
+};
+
+export { useJesusPunksData, useJesusPunkData }
