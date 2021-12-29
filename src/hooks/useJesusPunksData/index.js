@@ -1,12 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import useJesusPunks from "../useJesusPunks";
 
-//Plural Data
+//URI Structure
 const getPunkData = async ({jesusPunks, tokenId}) => {
     const [
         tokenURI,
-        dna, 
+        dna,
         owner,
+        ] = await Promise.all([
+        jesusPunks.methods.tokenURI(tokenId).call(),
+        jesusPunks.methods.tokenDNA(tokenId).call(),
+        jesusPunks.methods.ownerOf(tokenId).call(),
+    ]);
+
+    const [
         accessoriesType,
         clotheColor,
         clotheType,
@@ -20,32 +27,28 @@ const getPunkData = async ({jesusPunks, tokenId}) => {
         mouthType,
         skinColor,
         topType,
-        ] = await Promise.all([
-        jesusPunks.methods.tokenURI(tokenId).call(),
-        jesusPunks.methods.tokenDNA(tokenId).call(),
-        jesusPunks.methods.ownerOf(tokenId).call(),
-        jesusPunks.methods.getAccessoriesType(tokenId).call,
-        jesusPunks.methods.getClotheColor(tokenId).call,
-        jesusPunks.methods.getClotheType(tokenId).call,
-        jesusPunks.methods.getEyeType(tokenId).call,
-        jesusPunks.methods.getEyeBrowType(tokenId).call,
-        jesusPunks.methods.getFacialHairColor(tokenId).call,
-        jesusPunks.methods.getFacialHairType(tokenId).call,
-        jesusPunks.methods.getHairColor(tokenId).call,
-        jesusPunks.methods.getHatColor(tokenId).call,
-        jesusPunks.methods.getGraphicType(tokenId).call,
-        jesusPunks.methods.getMouthType(tokenId).call,
-        jesusPunks.methods.getSkinColor(tokenId).call,
-        jesusPunks.methods.getTopType(tokenId).call,
-
-    ]);
+      ] = await Promise.all([
+        jesusPunks.methods.getAccessoriesType(dna).call(),
+        jesusPunks.methods.getClotheColor(dna).call(),
+        jesusPunks.methods.getClotheType(dna).call(),
+        jesusPunks.methods.getEyeType(dna).call(),
+        jesusPunks.methods.getEyeBrowType(dna).call(),
+        jesusPunks.methods.getFacialHairColor(dna).call(),
+        jesusPunks.methods.getFacialHairType(dna).call(),
+        jesusPunks.methods.getHairColor(dna).call(),
+        jesusPunks.methods.getHatColor(dna).call(),
+        jesusPunks.methods.getGraphicType(dna).call(),
+        jesusPunks.methods.getMouthType(dna).call(),
+        jesusPunks.methods.getSkinColor(dna).call(),
+        jesusPunks.methods.getTopType(dna).call(),
+      ]);
 
     const responseMetadata= await fetch(tokenURI);
     const metadata = await responseMetadata.json();
 
     return {
         tokenId,
-        atributes: {
+        attributes: {
             accessoriesType,
             clotheColor,
             clotheType,
@@ -67,6 +70,7 @@ const getPunkData = async ({jesusPunks, tokenId}) => {
     }
 };
 
+// Plural Data
 const useJesusPunksData = () => {
     const [punks, setPunks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -104,17 +108,17 @@ const useJesusPunksData = () => {
 };
 
 // Singular Data
-const useJesusPunkData = (tokenId = null) =>{
-    const [punk, setPunk] = useState({});
+const useJesusPunkData = (tokenId) => {
+    const [punk, setPunk] = useState({ });
     const [loading, setLoading] = useState(true);
     const jesusPunks = useJesusPunks();
 
     const update = useCallback(async() =>{
-        if (jesusPunks && tokenId !=null){
+        if (jesusPunks && tokenId){
             setLoading(true);
 
-            const toSet = await getPunkData({ tokenId, jesusPunks });
-            setPunk(toSet);
+            const punk = await getPunkData({ jesusPunks,tokenId });
+            setPunk(punk);
 
             setLoading(false);
         };

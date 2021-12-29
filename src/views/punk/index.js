@@ -18,33 +18,6 @@ import { useJesusPunkData } from "../../hooks/useJesusPunksData";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/loading";
 
-/** 
-const punk = {
-  tokenID: "1",
-  attributes: {
-      getClotheColor: "Hola",
-      accessoriesType: "Hola",
-      clotheColor: "Generico",
-      clotheType: "Generico",
-      eyeType: "Generico",
-      eyeBrowType: "Generico",
-      facialHairColor: "Generico",
-      facialHairType: "Generico",
-      hairColor: "Generico",
-      hatColor: "Generico",
-      graphicType: "Generico",
-      mouthType: "Generico",
-      skinColor: "Generico",
-      topType: "Generico"
-      },
-  owner: "0x0000000",
-  dna: "123456789012345678901234567890",
-  name: "Jesus Punk 1",
-  description: "Json de prueba",
-  image: "https://avataaars.io/"
-};
-**/
-
 const Punk = () => {
   const { active, account } = useWeb3React();
   const { tokenId } = useParams();

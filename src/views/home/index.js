@@ -12,6 +12,7 @@ import {
   import { useWeb3React } from "@web3-react/core";
   import useJesusPunks from "../../hooks/useJesusPunks";
   import { useCallback, useEffect, useState } from "react";
+  import useTruncatedAddress from "../../hooks/useTruncatedAddress"
   
   const Home = () => {
     const [isMinting, setIsMinting] = useState(false);
@@ -19,6 +20,10 @@ import {
     const { active, account } = useWeb3React();
     const jesusPunks = useJesusPunks();
     const toast = useToast();
+    const address = window.ethereum.selectedAddress
+
+    const truncatedAddress = useTruncatedAddress(address);
+
   
     const getJesusPunksData = useCallback(async () => {
       if (jesusPunks) {
@@ -65,6 +70,7 @@ import {
             });
         });
     };
+
   
     return (
       <Stack
@@ -156,7 +162,7 @@ import {
                 <Badge ml={2}>
                   Address:
                   <Badge ml={1} colorScheme="green">
-                    0x0000...0000
+                    {truncatedAddress}
                   </Badge>
                 </Badge>
               </Flex>
