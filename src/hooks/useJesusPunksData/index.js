@@ -1,3 +1,4 @@
+import { useWeb3React } from "@web3-react/core";
 import { useCallback, useEffect, useState } from "react";
 import useJesusPunks from "../useJesusPunks";
 
@@ -71,8 +72,9 @@ const getPunkData = async ({jesusPunks, tokenId}) => {
 };
 
 // Plural Data
-const useJesusPunksData = () => {
+const useJesusPunksData = ({ owner = null } = {}) => {
     const [punks, setPunks] = useState([]);
+    const { library } = useWeb3React()
     const [loading, setLoading] = useState(true);
     const jesusPunks = useJesusPunks()
 
@@ -82,8 +84,22 @@ const useJesusPunksData = () => {
 
             let tokenIds;
 
-            const totalSupply = await jesusPunks.methods.totalSupply().call();
-            tokenIds = new Array(Number(totalSupply)).fill().map((_, index) => index);
+            if(!library.utils.isAddress(owner)){
+                const totalSupply = await jesusPunks.methods.totalSupply().call();
+                tokenIds = new Array(Number(totalSupply))
+                .fill()
+                .map((_, index) => index);
+            }else{
+                const balanceOf = await jesusPunks.methods.balanceOf(owner).call();
+
+                const tokensIdsOfOwner = new Array(Number(balanceOf))
+                    .fill()
+                    .map((_, index) =>
+                     jesusPunks.methods.tokenOfOwnerByIndex(owner, index).call()
+                );
+
+                tokenIds = await Promise.all(tokensIdsOfOwner)
+            }
 
             const punksPromise = tokenIds.map((tokenId) => 
                 getPunkData({ tokenId, jesusPunks })
@@ -94,7 +110,7 @@ const useJesusPunksData = () => {
             setPunks(punks);
             setLoading(false);
         }
-    }, [jesusPunks]);
+    }, [jesusPunks, owner, library?.utils]);
 
     useEffect(() => {
         update();
@@ -108,13 +124,13 @@ const useJesusPunksData = () => {
 };
 
 // Singular Data
-const useJesusPunkData = (tokenId) => {
+const useJesusPunkData = (tokenId = null) => {
     const [punk, setPunk] = useState({ });
     const [loading, setLoading] = useState(true);
     const jesusPunks = useJesusPunks();
 
     const update = useCallback(async() =>{
-        if (jesusPunks && tokenId){
+        if (jesusPunks && tokenId != null){
             setLoading(true);
 
             const punk = await getPunkData({ jesusPunks,tokenId });
