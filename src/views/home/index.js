@@ -11,20 +11,20 @@ import {
   import { Link } from "react-router-dom";
   import { useWeb3React } from "@web3-react/core";
   import useJesusPunks from "../../hooks/useJesusPunks";
-  import { useCallback, useEffect, useState } from "react";
-  import useTruncatedAddress from "../../hooks/useTruncatedAddress"
+  import { useJesusPunksData } from '../../hooks/useJesusPunksData';
+  import { useCallback, useEffect, useState } from "react"; 
+  import useTruncatedAddress from "../../hooks/useTruncatedAddress";
   
   const Home = () => {
     const [isMinting, setIsMinting] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
     const { active, account } = useWeb3React();
     const jesusPunks = useJesusPunks();
+    const { punks } = useJesusPunksData();
     const toast = useToast();
-    const address = window.ethereum.selectedAddress
 
-    const truncatedAddress = useTruncatedAddress(address);
+    const truncatedAddress = useTruncatedAddress(account);
 
-  
     const getJesusPunksData = useCallback(async () => {
       if (jesusPunks) {
         const totalSupply = await jesusPunks.methods.totalSupply().call();
@@ -43,7 +43,9 @@ import {
     const mint = () => {
         setIsMinting(true);
 
-        jesusPunks.methods.mint().send({
+        jesusPunks.methods
+        .mint()
+        .send({
             from: account,
         })
         .on("transactionHash", (txHash) =>{
@@ -53,12 +55,12 @@ import {
                 status: 'info',
             });
         })
-        .on("recipient", () =>{
-            setIsMinting(false);
-            toast({
-                title: 'Transacción confirmada',
-                description: 'Aprendiendo',
-                status: 'success',
+        .on("receipt", () => {
+          setIsMinting(false);
+          toast({
+            title: "Transacción confirmada",
+            description: "Nunca pares de aprender.",
+            status: "success",
             });
         })
         .on("error", (error) => {
@@ -156,7 +158,7 @@ import {
                 <Badge>
                   Next ID:
                   <Badge ml={1} colorScheme="green">
-                    1
+                    {punks.length}
                   </Badge>
                 </Badge>
                 <Badge ml={2}>
