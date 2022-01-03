@@ -40,6 +40,17 @@ import {
       getJesusPunksData();
     }, [getJesusPunksData]);
 
+    const nextId = () => {
+      const nId = parseInt(punks.length);
+
+      if(nId <= 255){
+        return nId
+      }else{
+        return("No Disponible")
+      }  
+    };
+    
+
     const mint = () => {
         setIsMinting(true);
 
@@ -158,7 +169,7 @@ import {
                 <Badge>
                   Next ID:
                   <Badge ml={1} colorScheme="green">
-                    {punks.length}
+                    {nextId()}
                   </Badge>
                 </Badge>
                 <Badge ml={2}>

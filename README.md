@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Jesus Punks Interface
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Acerca de
 
-## Available Scripts
+### El uso solo esta disponible en la red de prueba de Rinkeby, usa algún faucet para pasarte fondos y probarlo.
 
-In the project directory, you can run:
+Esta es la interfaz de usuario del contrato "Jesus Punks" y esta desarrollado con las siguientes tecnologías:
 
-### `npm start`
+ - React (https://github.com/facebook/react)
+ - React-Router (https://github.com/remix-run/react-router)
+ - ChakraUI (https://github.com/chakra-ui/chakra-ui)
+ - Web3.js (https://github.com/ChainSafe/web3.js)
+ - Web3-React (https://github.com/NoahZinsmeister/web3-react)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+El proyecto es meramente educativo y tiene como propósito mi aprendizaje en desarrollo de tecnologías en Crypto y Web 3.0 por lo que sugiero si por algún motivo vas a usar el código revisarlo y adaptarlo a tus necesidades.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Puedes encontrar el despliegue de la aplicación completa en:
 
-### `npm test`
+- IPFS V1: bafybeiadzxkuxjxw2uhjjzqictqyghck553mitpoceyjywv76ojrcexk64
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Puedes encontrar el contrato en:
 
-### `npm run build`
+- https://github.com/jcocano/JesusPunks
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## About project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Usage is only available on Rinkeby Test Network, use some faucet to fund and test it.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+User interface for the contract "Jesus Punk", this development uses the following technologies:
 
-### `npm run eject`
+  - React (https://github.com/facebook/react)
+  - React-Router (https://github.com/remix-run/react-router)
+  - ChakraUI (https://github.com/chakra-ui/chakra-ui)
+  - Web3.js (https://github.com/ChainSafe/web3.js)
+  - Web3-React (https://github.com/NoahZinsmeister/web3-react)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The project is purely educational and its purpose is my learning in the development of Crypto and Web 3.0 technologies, I suggest if for any reason you are going to use the code, review it and adapt it to your needs..
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can find the full application deployment at:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- IPFS V1: bafybeiadzxkuxjxw2uhjjzqictqyghck553mitpoceyjywv76ojrcexk64
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You can find the contract at:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- https://github.com/jcocano/JesusPunks
